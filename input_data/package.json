@@ -1,0 +1,6 @@
+{
+  "name": "search-suggestion-batch",
+  "private": true,
+  "type": "module",
+  "scripts": {"process": "node ../output/build_suggestions.mjs --input-root . --output-root ../output"}
+}

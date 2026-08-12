@@ -1,0 +1,24 @@
+{"event_id":"Q-001","event_time_utc":"2026-07-29T10:00:00Z","locale":"en-US","surface":"web","raw_query":"iphne 17","impression_count":90,"click_count":28}
+{"event_id":"Q-002","event_time_utc":"2026-07-28T12:00:00Z","locale":"en-US","surface":"app","raw_query":"  iphone17  ","impression_count":120,"click_count":45}
+{"event_id":"Q-003","event_time_utc":"2026-07-21T08:00:00Z","locale":"en-US","surface":"web","raw_query":"iphone 17 case","impression_count":80,"click_count":20}
+{"event_id":"Q-004","event_time_utc":"2026-07-29T09:30:00Z","locale":"en-US","surface":"web","raw_query":"air pods pro","impression_count":70,"click_count":30}
+{"event_id":"Q-005","event_time_utc":"2026-07-23T15:10:00Z","locale":"en-US","surface":"app","raw_query":"airpods pro","impression_count":100,"click_count":40}
+{"event_id":"Q-006","event_time_utc":"2026-07-25T11:20:00Z","locale":"en-US","surface":"web","raw_query":"playstaion portal","impression_count":60,"click_count":18}
+{"event_id":"Q-007","event_time_utc":"2026-07-20T17:45:00Z","locale":"en-US","surface":"app","raw_query":"playstation portal","impression_count":90,"click_count":26}
+{"event_id":"Q-008","event_time_utc":"2026-07-29T22:00:00Z","locale":"en-US","surface":"web","raw_query":"pw dump","impression_count":40,"click_count":5}
+{"event_id":"Q-009","event_time_utc":"2026-07-28T18:00:00Z","locale":"en-US","surface":"web","raw_query":"login bypass tool","impression_count":30,"click_count":4}
+{"event_id":"Q-010","event_time_utc":"2026-07-27T14:00:00Z","locale":"en-US","surface":"app","raw_query":"wireless charger","impression_count":85,"click_count":33}
+{"event_id":"Q-011","event_time_utc":"2026-07-19T12:30:00Z","locale":"en-US","surface":"web","raw_query":"wirless charger","impression_count":75,"click_count":24}
+{"event_id":"Q-012","event_time_utc":"2026-07-29T16:20:00Z","locale":"en-US","surface":"web","raw_query":"kids tablet","impression_count":65,"click_count":22}
+{"event_id":"Q-013","event_time_utc":"2026-07-21T13:00:00Z","locale":"en-US","surface":"app","raw_query":"kid tablet","impression_count":50,"click_count":12}
+{"event_id":"Q-014","event_time_utc":"2026-07-29T10:40:00Z","locale":"zh-CN","surface":"app","raw_query":"手机 壳","impression_count":100,"click_count":30}
+{"event_id":"Q-015","event_time_utc":"2026-07-27T09:10:00Z","locale":"zh-CN","surface":"web","raw_query":"手机壳","impression_count":80,"click_count":25}
+{"event_id":"Q-016","event_time_utc":"2026-07-28T20:00:00Z","locale":"zh-CN","surface":"app","raw_query":"无线耳机","impression_count":130,"click_count":45}
+{"event_id":"Q-017","event_time_utc":"2026-07-22T08:30:00Z","locale":"zh-CN","surface":"web","raw_query":"蓝牙 耳机","impression_count":60,"click_count":18}
+{"event_id":"Q-018","event_time_utc":"2026-07-29T21:00:00Z","locale":"zh-CN","surface":"web","raw_query":"会员 账号 买卖","impression_count":50,"click_count":2}
+{"event_id":"Q-019","event_time_utc":"2026-07-24T19:00:00Z","locale":"zh-CN","surface":"app","raw_query":"旅行收纳袋","impression_count":70,"click_count":20}
+{"event_id":"Q-020","event_time_utc":"2026-07-29T07:30:00Z","locale":"zh-CN","surface":"web","raw_query":"旅游 收纳 包","impression_count":45,"click_count":15}
+{"event_id":"Q-021","event_time_utc":"2026-07-26T11:40:00Z","locale":"zh-CN","surface":"app","raw_query":"运动水杯","impression_count":95,"click_count":36}
+{"event_id":"Q-022","event_time_utc":"2026-07-18T06:50:00Z","locale":"zh-CN","surface":"web","raw_query":"水杯 运动","impression_count":55,"click_count":14}
+{"event_id":"Q-023","event_time_utc":"2026-07-25T16:45:00Z","locale":"zh-CN","surface":"app","raw_query":"电子书 阅读器","impression_count":80,"click_count":30}
+{"event_id":"Q-024","event_time_utc":"2026-07-29T23:10:00Z","locale":"zh-CN","surface":"web","raw_query":"盗版会员","impression_count":35,"click_count":1}

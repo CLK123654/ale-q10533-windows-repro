@@ -1,0 +1,73 @@
+总分100分
+
+1. 业务交付与Node.js入口
+分值：12分
+标准答案：output/build_suggestions.mjs、output/reports/suggestion_rankings.csv、output/reports/suppressed_queries.csv和output/reports/normalization_audit.csv均存在且可读；在input_data目录执行npm run process后正常结束。
+关键字段：四个相对路径；Node.js进程退出状态；三份CSV的表头与数据行。
+容差：交付路径和扩展名逐字比较；JavaScript的函数拆分、内部容器和注释不参与比较。
+失败边界：任一声明文件缺失或不可解析，入口非零结束，或三份业务输入中有一份未参与处理。
+可观察证据：交付文件树、进程退出状态与三份CSV解析结果。
+客观硬性标准：四个路径全部存在，Node.js入口在有限超时内返回0，三份CSV可逐行读取。
+阈值：四个路径任缺一个，或退出状态不为0，本项不得分。
+优先级：Gate项
+所属层级：L2
+
+2. 查询归一化与别名映射
+分值：18分
+标准答案：normalization_audit.csv按query_events.jsonl的物理行序覆盖全部event_id；normalized_query依次执行trim、小写和连续空白折叠，canonical_query使用normalization_rules.json当前aliases映射，mapped_by_alias与映射是否发生一致。
+关键字段：query_events.jsonl的event_id与raw_query；normalization_rules.json的aliases；normalization_audit.csv的normalized_query、canonical_query和mapped_by_alias。
+容差：raw_query保留输入中的原值；业务字段精确比较，CSV引用符和LF或CRLF行尾可不同。
+失败边界：遗漏或重复event_id，归一化顺序错误，忽略aliases，或mapped_by_alias与词形变化矛盾。
+可观察证据：原始事件与归一化轨迹按event_id联表后的raw_query、normalized_query和canonical_query。
+客观硬性标准：每个输入event_id在轨迹中恰好出现一次，三步归一化和aliases映射全部与规则一致。
+阈值：每个event_id单独计分；遗漏、重复或三个归一化字段中任一错误时，扣除该事件所占分值。
+优先级：高权重项
+所属层级：L4
+
+3. 敏感查询压制
+分值：18分
+标准答案：每条事件先检查normalized_query，再检查canonical_query；首个命中的term与category记入suppressed_queries.csv，matched_on指向真正命中的词形，action为remove_from_suggestions；压制事件不进入排名来源。
+关键字段：sensitive_terms.csv的term与category；归一化轨迹的normalized_query、canonical_query、suppressed和suppression_category；压制清单的event_id、suppression_term、matched_on、category和action。
+容差：压制词表的物理顺序决定首个命中；CSV序列化差异不影响按event_id比较的处置结果。
+失败边界：只检查原始词或归一化词，遗漏别名后命中，误压制其他事件，分类或matched_on错误，或压制事件进入排名。
+可观察证据：敏感词表、压制清单、归一化轨迹和排名来源event_id的集合关系。
+客观硬性标准：所有命中事件恰好出现在压制清单中，分类与命中范围正确，且与排名来源不相交。
+阈值：每个敏感词命中单独计分；漏压制、误压制、分类错误或排名泄漏时，扣除对应事件所占分值。
+优先级：Gate项
+所属层级：L6
+
+4. 时间衰减与事件得分
+分值：16分
+标准答案：days_old为reference_time_utc与event_time_utc的毫秒差除以86400000，decay_factor为0.5的days_old除以decay_half_life_days次方，event_score为impression_count加click_count乘click_boost后乘decay_factor；轨迹保留衰减因子六位小数和事件得分四位小数。
+关键字段：query_events.jsonl的event_time_utc、impression_count和click_count；normalization_rules.json的reference_time_utc、decay_half_life_days和click_boost；轨迹的decay_factor和event_score。
+容差：decay_factor按六位小数比较，event_score按四位小数比较；中间计算不提前取整。
+失败边界：使用系统当前时间，把毫秒当天数，点击加权方向错误，提前取整，或将不可解析数值写入轨迹。
+可观察证据：每条event_id的输入时刻、曝光、点击、规则参数与轨迹中的两个计算值。
+客观硬性标准：全部事件的decay_factor和event_score均由当前输入公式得到，轨迹中不出现非有限值。
+阈值：每个event_id单独计分；两个数值中任一超出容差，扣除该事件所占分值。
+优先级：高权重项
+所属层级：L7
+
+5. 语种聚合与建议词排名
+分值：24分
+标准答案：未压制事件按locale和canonical_query汇总total_impressions、total_clicks、decayed_score、source_event_ids、alias_event_count和last_event_time_utc；每个locale按decayed_score降序、total_clicks降序、canonical_query代码点升序取top_n_per_locale，rank从1连续编号。
+关键字段：normalization_audit.csv的locale、canonical_query、suppressed和event_score；suggestion_rankings.csv的rank、decayed_score、total_impressions、total_clicks、source_event_ids、alias_event_count和last_event_time_utc。
+容差：decayed_score按四位小数比较；source_event_ids按输入物理顺序用竖线连接；代码点顺序不使用系统locale。
+失败边界：跨locale聚合，压制事件进入排名，事件遗漏或重复，排序键或方向错误，TopN数量不符合规则，或rank不连续。
+可观察证据：未压制轨迹按locale和canonical_query分组的数值聚合，以及与排名表逐行对应的来源event_id。
+客观硬性标准：每个排名行的数值、来源集合和最新时刻全部从轨迹汇总，每个locale的行数与rank符合当前规则。
+阈值：每个排名行单独计分；任一聚合字段、来源event_id或rank错误，扣除该行所占分值。
+优先级：高权重项
+所属层级：L9
+
+6. 三份结果的业务闭合
+分值：12分
+标准答案：归一化轨迹覆盖全部输入event_id，压制清单等于轨迹中suppressed为yes的事件，排名表的source_event_ids恰好来自未压制轨迹；三份CSV中的locale、canonical_query和event_id能互相对应。
+关键字段：三份CSV的event_id、locale、canonical_query、suppressed、source_event_ids、suppression_term和category。
+容差：比较业务主键、集合关系和字段值；CSV引用符和行尾差异不参与判定。
+失败边界：轨迹未覆盖某个输入事件，压制清单与轨迹状态不一致，排名来源包含压制事件，或三份结果的locale和canonical_query无法关联。
+可观察证据：全部输入event_id、轨迹event_id、压制event_id和排名source_event_ids的差集与交集，以及共享业务字段。
+客观硬性标准：事件覆盖、压制分流和排名来源三类集合关系全部成立，三份结果可按业务字段连接。
+阈值：三类集合关系每失败1类扣4分；共享业务字段存在无法关联的记录时扣4分，扣完为止。
+优先级：普通项
+所属层级：L5

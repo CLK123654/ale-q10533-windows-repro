@@ -1,0 +1,8 @@
+1. 使用Node.js逐行读取input_data/data/query_events.jsonl，并读取归一化规则与敏感词表。
+2. 将每条raw_query去除首尾空白、转为小写、折叠Unicode连续空白，再按aliases取得canonical_query。
+3. 按敏感词表顺序检查normalized_query和canonical_query，把命中事件及其分类放入压制清单。
+4. 根据reference_time_utc和decay_half_life_days算出事件天龄与衰减因子，再用曝光、点击和click_boost得到event_score。
+5. 把全部事件的原始词、归一化词、canonical_query、映射状态、压制分类和得分写入normalization_audit.csv。
+6. 按locale和canonical_query汇总未压制事件的曝光、点击、衰减得分、来源event_id和最新时刻。
+7. 在每个locale内按衰减得分、点击数和canonical_query代码点排序，取top_n_per_locale规定的词写入suggestion_rankings.csv。
+8. 将命中的事件、敏感词、分类和处置动作写入suppressed_queries.csv，然后保存完成程序。

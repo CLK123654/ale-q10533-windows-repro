@@ -1,0 +1,20 @@
+{
+  "reference_time_utc": "2026-07-30T00:00:00Z",
+  "decay_half_life_days": 7,
+  "top_n_per_locale": 3,
+  "click_boost": 0.35,
+  "aliases": {
+    "iphne 17": "iphone 17",
+    "iphone17": "iphone 17",
+    "air pods pro": "airpods pro",
+    "playstaion portal": "playstation portal",
+    "pw dump": "password dump",
+    "wirless charger": "wireless charger",
+    "kid tablet": "kids tablet",
+    "手机 壳": "手机壳",
+    "蓝牙 耳机": "无线耳机",
+    "旅游 收纳 包": "旅行收纳袋",
+    "水杯 运动": "运动水杯",
+    "电子书 阅读器": "电子书阅读器"
+  }
+}
